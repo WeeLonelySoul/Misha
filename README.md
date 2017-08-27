@@ -1,4 +1,4 @@
-# louOS [A Work In Progress]
+# Misha, formerly known as louOS [A Work In Progress]
 *A quite so different operating system*
 
 # Purpose for this project
