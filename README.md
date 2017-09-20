@@ -1,12 +1,14 @@
-# Misha, formerly known as louOS [A Work In Progress]
+# Misha
+`This project was earlier known as louOS`<br>
+`This project is still a work in progress, read the wiki for more info about the project`
+
 *A quite so different operating system*
 
-# Purpose for this project
-Mostly shit and giggles at the moment, might in the future actually develop it into something more "special".
+
 
 
 # Release Schedule
-`Note: Smaller updates and bigger updates will be released between the phases aswell. The Phases should be seen has LTS if we want to compare it to linux.`
+
 ### Phase 1: Release date 22/12 2017
  
 * Basic kernel shell
@@ -15,7 +17,7 @@ Mostly shit and giggles at the moment, might in the future actually develop it i
     - update (Checks online for updates, manually equivalent to bupdate on the system)
     - cv (current version, displays a "nice" screen informing the user about the current version of the OS/Kernel)
     
-`Note: More commands will be included in the official release, all commands will be available through the doc section`
+`Note: More commands will be included in the official release, all commands will be available through the wiki section here on github`
 
 * The ability to "Network update" (still uncertain about how/if it's gonna be implemented or not in this update)
 <br>`Note: Purpose is to check if there is a new option online, if so prompt on boot or if the user runs the "update" command`
@@ -27,7 +29,7 @@ Mostly shit and giggles at the moment, might in the future actually develop it i
 * Implantation of the actual OS ("codenamed" louOS)
   - The OS will include the following features
     - User login
-    - Mail support (Still uncertain about this)
+    ~~- Mail support (Still uncertain about this)~~
     - CPU/system info
     - A basic implentation of another of my projects *Felix*<br>
 `Note: More commands will be included in the official release, all commands will be available through the doc section`
