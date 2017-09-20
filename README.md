@@ -28,7 +28,7 @@
 * Loading screen
 * Implantation of the actual OS ("codenamed" louOS)
   - The OS will include the following features
-    - User login
+    - User login <br>
     ~~- Mail support (Still uncertain about this)~~
     - CPU/system info
     - A basic implentation of another of my projects *Felix*<br>
