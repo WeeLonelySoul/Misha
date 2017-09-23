@@ -13,14 +13,18 @@
  
 * Basic kernel shell
   - Basic commands
-    - ksay (kernel say, equivalent to print on *nix  systems)
+    - help (help screen)
     - update (Checks online for updates, manually equivalent to bupdate on the system)
     - cv (current version, displays a "nice" screen informing the user about the current version of the OS/Kernel)
+    - clear/cls (Cleans the screen from output)
+    - about (Shows more details about the project and me)
+    - pn (Patch notes, will contain notes for the the most recent patch)
     
 `Note: More commands will be included in the official release, all commands will be available through the wiki section here on github`
 
-* The ability to "Network update" (still uncertain about how/if it's gonna be implemented or not in this update)
-<br>`Note: Purpose is to check if there is a new option online, if so prompt on boot or if the user runs the "update" command`
+~~* The ability to "Network update" (still uncertain about how/if it's gonna be implemented or not in this update)~
+<br>`Note: Purpose is to check if there is a new option online, if so prompt on boot or if the user runs the "update" command`~~
+`Note: I will add this at a later stage when I get networking working`
 
 ### Phase 2: Release date spring/summer 2018
 * More shell commands
