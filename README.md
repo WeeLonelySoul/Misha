@@ -29,7 +29,7 @@
 * More shell commands
 * More Docs
 * Loading screen
-* Implantation of the actual OS ("codenamed" louOS)
+* Implantation of the actual OS
   - The OS will include the following features
     - User login <br>
     ~~- Mail support (Still uncertain about this)~~
