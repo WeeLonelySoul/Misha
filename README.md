@@ -4,6 +4,7 @@
 ## This project was earlier known as louOS
 
 ### This project is still a work in progress, read the wiki for more info about the project
+<b>[Release dates can be found here!](https://github.com/WeeLonelySoul/Misha/wiki/Release-Window)</b>
 
 ## Update! (29/11/2017)
 Phase 1 is done and will be released on schedule, I'm currently working on phase2 which will be probably be released during the summer of 2018.
