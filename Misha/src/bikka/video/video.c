@@ -36,7 +36,17 @@ void TERMINAL_PUT_ENTRY_AT(char C, uint8_t Color, size_t X_Axis, size_t Y_Axis){
 
 void TERMINAL_PUT_CHAR(char Character){
     /* One of the 'core functions' used to print */
+
+    if (Character == '\n'){ /* Enable support for newline */
+        _TerminalColumn = 0; /* Set the column to 0, so that we start at the beginning of the new row */
+        _TerminalRow = _TerminalRow + 1; /* Add 1 to the row so that we start fresh */
+        Character = ' '; /* Make the character go away */
+    }else if (Character == '\t'){ /* Enable support for tab */
+        _TerminalColumn = _TerminalColumn + 4; /* 4 spaces */
+    }
+
     TERMINAL_PUT_ENTRY_AT(Character, _TerminalColor, _TerminalColumn, _TerminalRow);
+
     if (++_TerminalColumn == _VGAWidth){
         _TerminalColumn = 0;
         if (++_TerminalRow == _VGAHeight){

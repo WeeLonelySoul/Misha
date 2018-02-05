@@ -4,13 +4,27 @@
 /* And now we have booleans */
 #include <stddef.h>
 typedef int bool; 
-#define true 1;
-#define false 0;
-
+#define true 1
+#define false 0
 #define EOF '\0'
+#define low_16(address) (u16)((address) & 0xFFFF)
+#define high_16(address) (u16)(((address) >> 16) & 0xFFFF)
 
-typedef char* string;
+typedef char* string; /* You want strings? You get char * instead */
 
-size_t STRLEN(const char *String);
 
+typedef unsigned int u32;
+typedef          int s32;
+typedef unsigned short u16;
+typedef          short s16;
+typedef unsigned char u8;
+typedef char s8;
+
+
+#define low_16(address) (u16)((address) & 0xFFFF)
+#define high_16(address) (u16)(((address) >> 16) & 0xFFFF)
+/* Functions */
+size_t STRLEN(const char *String); /* String length */
+void INT_TO_ASCII(int N, char STR[]); /* Turns int to ascii value, which also happens to be int */
+void REVERSE(char S[]); /* Reverses the order of S[] so hello would be olleh */
 #endif

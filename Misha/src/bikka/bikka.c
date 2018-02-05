@@ -1,4 +1,8 @@
+#include "../libraries/bikka/bikka.h"
 #include "../libraries/bikka/video.h"
+#include "../libraries/bikka/isr.h"
+#include "../libraries/bikka/irq.h"
+#include "../libraries/bikka/printsyssetup.h"
 
 /*
 
@@ -9,9 +13,9 @@ Bikka main entry
 
 void BIKKA_MAIN(void){
     /* Core functions for pretty much every operatingsystems */
-    // IRQ_INSTALL(); /* Interrupt request */
+     IRQ_INSTALL(); /* Interrupt request */
     // GDT_INSTALL(); /* Global Descriptor Table */
-    // ISR_INSTALL(); /* Interrupt handler */
+     ISR_INSTALL(); /* Interrupt handler */
 
     /* Less but still important functions */
     TERMINAL_INSTALL(); /* Install the terminal */
@@ -22,9 +26,9 @@ void BIKKA_MAIN(void){
     // FILESYSTEM_SETUP_PATH(); /* Set the path for our shell */
 
     /* Setup is done, init Misha */
-    // __PrintSysSetup(); /* Print out the details regarding the system */
-    // _Sleep(30); /* 30 sec */
-    // START_MISHA();
+    _PrintSysSetup(); /* Print out the details regarding the system */
+    // _Sleep(30); /* Sleep for 30 secs */
+    // START_MISHA(); /* Start Misha */
     // for(;;){}
-    printf("Misha 2.0 - Alpha");
+    //_INIT_KEYBOARD(); /* Start the keyboard */
 }

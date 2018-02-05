@@ -1,5 +1,4 @@
 #ifndef SHELL_H
-
 #define SHELL_H 1
 
 #define U32 unsigned long
