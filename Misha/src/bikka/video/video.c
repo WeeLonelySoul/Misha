@@ -1,5 +1,7 @@
 #include "../../libraries/bikka/video.h"
 #include "../../libraries/common.h"
+#include "../../libraries/bikka/low_level.h"
+#include "../../libraries/bikka/memory.h"
 
 size_t _TerminalRow;
 size_t _TerminalColumn;
@@ -23,7 +25,7 @@ void TERMINAL_INSTALL(void){
     }
 }
 
-void TERMINA_SET_COLOR(uint8_t Color){
+void TERMINAL_SET_COLOR(uint8_t Color){
     /* Just a function to set the global variable '_TerminalColor' */
     _TerminalColor = Color; /* Nice */
 }
@@ -41,10 +43,13 @@ void TERMINAL_PUT_CHAR(char Character){
         _TerminalColumn = 0; /* Set the column to 0, so that we start at the beginning of the new row */
         _TerminalRow = _TerminalRow + 1; /* Add 1 to the row so that we start fresh */
         Character = ' '; /* Make the character go away */
-    }else if (Character == '\t'){ /* Enable support for tab */
-        _TerminalColumn = _TerminalColumn + 4; /* 4 spaces */
     }
-
+    
+    if (Character == '\t'){ /* Enable support for tab */
+        _TerminalColumn = _TerminalColumn + 4; /* 4 spaces */
+        Character = ' '; /* Make the character go away */
+    }
+    int Offset = GET_SCREEN_OFFSET(_TerminalColumn+1, _TerminalRow); /* Get where the cursor should be */
     TERMINAL_PUT_ENTRY_AT(Character, _TerminalColor, _TerminalColumn, _TerminalRow);
 
     if (++_TerminalColumn == _VGAWidth){
@@ -53,6 +58,9 @@ void TERMINAL_PUT_CHAR(char Character){
             _TerminalRow = 0;
         }
     }
+    Offset += 2;
+    Offset = SCROLLING(Offset);
+    SET_CURSOR(Offset); /* Set the cursor */
 }
 
 void TERMINAL_WRITE(const char *Data, size_t Size){
@@ -63,4 +71,37 @@ void TERMINAL_WRITE(const char *Data, size_t Size){
 void TERMINAL_WRITE_STRING(const char *Data){
     /**/
     TERMINAL_WRITE(Data, STRLEN(Data));
+}
+
+/* Special print function */
+void GeoPrint(const char *Data, int Col, int Row, bool Reset){
+    /* Geo print prints out 'Data' at the location marked by 'Col' and 'Row' */
+    _TerminalColumn = Col; /* Set the column to our desired value */
+    _TerminalRow = Row; /* Set the row to the desired value */
+    TERMINAL_WRITE_STRING(Data); /* Print the string */
+    if (Reset){ _TerminalColumn = 0; _TerminalRow = _TerminalRow + 1; } /* It's now an option if you wnat to have the terminal restored */
+    
+}
+
+int GET_SCREEN_OFFSET(int Col, int Row){ return ((Row * _VGAWidth) + Col) * 2; }
+
+void SET_CURSOR(int Offset){
+    Offset /= 2;
+    PORT_BYTE_OUT(REG_SCREEN_CTRL, 14);
+    PORT_BYTE_OUT(REG_SCREEN_DATA, (unsigned char)(Offset >> 8));
+    PORT_BYTE_OUT(REG_SCREEN_CTRL, 15);
+    PORT_BYTE_OUT(REG_SCREEN_DATA, Offset);
+}
+
+int SCROLLING(int Offset){
+    /* Scrolls the screen if necessary */
+    int CursorOffset = Offset;
+    int i;
+    if (CursorOffset < (_VGAHeight*_VGAWidth*2)){ return CursorOffset; }
+    for (i = 1; i < _VGAHeight; i++){ MEM_CPY(GET_SCREEN_OFFSET(0, i) + 0xB8000, GET_SCREEN_OFFSET(0,i-1) + 0xB8000, _VGAWidth * 2); }
+
+    char *LastLine = GET_SCREEN_OFFSET(0, _VGAHeight-1) + 0xB8000;
+    for (i = 0; i < _VGAWidth * 2; i++){ LastLine[i] = 0; }
+    CursorOffset -= 2 * _VGAWidth;
+    return CursorOffset;
 }

@@ -4,7 +4,6 @@
 #include "../../libraries/bikka/low_level.h"
 
 
-isr_t InterruptHandler[256]; /* Global baby */
 
 char *exception_messages[] = {
     "Division By Zero",

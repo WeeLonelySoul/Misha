@@ -10,6 +10,9 @@
 static const size_t _VGAWidth = 80;
 static const size_t _VGAHeight = 25;
 
+/* Used for the cursor */
+#define REG_SCREEN_CTRL 0x3D4
+#define REG_SCREEN_DATA 0x3D5
 
 enum _VGA_COLOR_ {
     COLOR_BLACK = 0,
@@ -37,6 +40,7 @@ static inline uint16_t VGAEntry(unsigned char UC, uint8_t Color){
     return (uint16_t) UC | (uint16_t) Color << 8;
 }
 
+/* Terminal related */
 void TERMINAL_INSTALL(void);
 void TERMINAL_SET_COLOR(uint8_t Color);
 void TERMINAL_PUT_ENTRY_AT(char c, uint8_t Color, size_t X_Axis, size_t Y_Axis);
@@ -44,9 +48,17 @@ void TERMINAL_PUT_CHAR(char Character);
 void TERMINAL_WRITE(const char *Data, size_t Size);
 void TERMINAL_WRITE_STRING(const char *Data);
 
+/* Cursor functions*/
+int GET_SCREEN_OFFSET(int Col, int Row);
+void SET_CURSOR(int Offset);
+
+/* Scrolling */
+int SCROLLING(int Offset);
+
 /* Print functions */
 int PutChar(int IC);
 static bool print(const char *Data, size_t Length);
 int printf(const char *restrict Format, ...);
+void GeoPrint(const char *Data, int Col, int Row, bool Reset);
 
 #endif

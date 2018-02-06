@@ -27,4 +27,6 @@ typedef char s8;
 size_t STRLEN(const char *String); /* String length */
 void INT_TO_ASCII(int N, char STR[]); /* Turns int to ascii value, which also happens to be int */
 void REVERSE(char S[]); /* Reverses the order of S[] so hello would be olleh */
+int STR_CMP(char String1[], char String2[]); /* Compares String1 to String2 and returns the result */
+void APPEND(char String1[], char CharacterToAdd); /* Adds CharacterToAdd to the end of String1 */
 #endif

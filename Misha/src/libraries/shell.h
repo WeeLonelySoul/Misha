@@ -9,10 +9,8 @@
 #define S8 char
 
 
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
 
 #include "common.h"
 
+void INPUT(char *USER_INPUT); /* Temp shell */
 #endif
