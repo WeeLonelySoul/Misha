@@ -7,7 +7,7 @@ ASM_COMPILER_FLAGS = -f elf
 
 compile:
 	$(COMPILER_DIR) -c bikka.c -o $(OUTPUT_AREA)/critical/bikka.o $(COMPILE_FLAGS)
-	$(COMPILER_DIR) -c _PrintSysSetup.c -o $(OUTPUT_AREA)/_PrintSysSetup.o $(COMPILE_FLAGS)
+	$(COMPILER_DIR) -c syssetupprint.c -o $(OUTPUT_AREA)/syssetupprint.o $(COMPILE_FLAGS)
 	$(COMPILER_DIR) -c video/video.c -o $(OUTPUT_AREA)/video.o $(COMPILE_FLAGS)
 	$(COMPILER_DIR) -c video/print.c -o $(OUTPUT_AREA)/print.o $(COMPILE_FLAGS)
 
@@ -27,6 +27,7 @@ compile:
 	$(ASM_COMPILER) irq/irq.asm -o $(OUTPUT_AREA)/irq_asm.o $(ASM_COMPILER_FLAGS)
 
 	$(COMPILER_DIR) -c idt/idt.c -o $(OUTPUT_AREA)/idt.o $(COMPILE_FLAGS)
+	$(ASM_COMPILER) idt/idt.asm -o $(OUTPUT_AREA)/idt_asm.o $(ASM_COMPILER_FLAGS)
 
 	$(COMPILER_DIR) -c gdt/gdt.c -o $(OUTPUT_AREA)/gdt.o $(COMPILE_FLAGS)
 	$(ASM_COMPILER) gdt/gdt.asm -o $(OUTPUT_AREA)/gdt_asm.o	$(ASM_COMPILER_FLAGS)			

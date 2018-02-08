@@ -6,7 +6,7 @@
 unsigned char PORT_BYTE_IN(unsigned short Port){
     /* Recieve byte */
     unsigned char Result;
-    asm("inb %%dx , %%al" : "=a" (Result) : "d" (Port));
+    __asm__("inb %%dx , %%al" : "=a" (Result) : "d" (Port));
     return Result;
 }
 

@@ -46,11 +46,11 @@ typedef struct {
 
 typedef void (*isr_t)(registers_t);
 
-static isr_t InterruptHandler[256]; /* Global baby */
+isr_t InterruptHandler[256];
 
 
 void ISR_INSTALL(void);
 void ISR_HANDLER(registers_t R);
-void REGISTER_INTERRUPT_HANDLER(u8 N, isr_t Handler);
+void ISR_REGISTER_INTERRUPT_HANDLER(u8 N, isr_t Handler);
 
 #endif

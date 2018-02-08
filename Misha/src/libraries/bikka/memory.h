@@ -2,10 +2,12 @@
 #define MEMORY_H 1
 
 
-extern int LOW_MEMORY_DETECT(); /* Look in the memory_detect.asm file */
-extern int HIGH_MEMORY_DETECT(); /* Look in the memory_detect.asm file */
+extern int MEMORY_DETECT_LOW(); /* Look in the memory_detect.asm file */
+extern int MEMORY_DETECT_HIGH(); /* Look in the memory_detect.asm file */
 
 
-void MEM_CPY(char *Source, char *Dest, int Bytes);
+void *MEM_CPY(char *Src, char *Dest, int Bytes);
+int MEM_CMP(const void *CompareA, const void *CompareB, long Size);
+void *MEM_ALC(void *Buffer, int Value, long Size);
 
 #endif

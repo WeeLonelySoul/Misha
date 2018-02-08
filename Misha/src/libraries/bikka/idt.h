@@ -24,7 +24,7 @@ idt_registers_t IDT_REG;
 
 
 /* Functions */
-void SET_IDT_GATE(int N, u32 Handler);
-void SET_IDT(void);
-
+void IDT_SET_GATE(int N, u32 Handler);
+void IDT_SET(void);
+extern void IDT_FLUSH(); /* Look in the idt.asm file */
 #endif

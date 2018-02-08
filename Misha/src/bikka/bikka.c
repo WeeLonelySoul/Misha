@@ -13,7 +13,7 @@ Bikka main entry
 */
 
 /* Tab space of doom, atleast make this into a function in the future */
-string Logo ="\n"
+const string Logo ="\n"
 "\t\t                              $$\\                 \n" \
 "\t\t   $$$\\    $$$ |$$|           $$ |                \n" \
 "\t\t   $$$$\\  $$$$ |$$\\  $$$$$$$\\ $$$$$$$\\   $$$$$$\\  \n"\
@@ -25,9 +25,10 @@ string Logo ="\n"
 
 void BIKKA_MAIN(void){
     /* Core functions for pretty much every operatingsystems */
-     IRQ_INSTALL(); /* Interrupt request */
-     GDT_INSTALL(); /* Global Descriptor Table */
-     ISR_INSTALL(); /* Interrupt handler */
+    GDT_INSTALL(); /* Global Descriptor Table */
+    ISR_INSTALL(); /* Interrupt handler */
+    IRQ_INSTALL(); /* Interrupt request */
+
 
     /* Less but still important functions */
     TERMINAL_INSTALL(); /* Install the terminal */
@@ -36,12 +37,13 @@ void BIKKA_MAIN(void){
     // FILESYSTEM_FIND_DISK(); /* Find the disks */
     // FILESYSTEM_SETUP_DISK(); /* Make sure the disc are set and ready for use */
     // FILESYSTEM_SETUP_PATH(); /* Set the path for our shell */
-
     /* Setup is done, init Misha */
-    GeoPrint(Logo , 20, 0, true); /* New print function */
-    _PrintSysSetup(); /* Print out the details regarding the system */
+    GeoPrint("Kernel-Mode", 68, 0, true); /* Shows that the user is currently in kernel-land */
+    GeoPrint(Logo , 20, 1, true); /* New print function */
+    SYS_SETUP_PRINT(); /* Print out the details regarding the system */
+    // SYS_CPU_STAT(); /* Printo out cpu information */
     // _Sleep(30); /* Sleep for 30 secs */
-    // START_MISHA(); /* Start Misha */
+    // START_MISHA(); /* Enter usermode and start Misha */
     // for(;;){}
-
+    //INPUT();
 }

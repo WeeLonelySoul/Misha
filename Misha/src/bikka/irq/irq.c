@@ -1,5 +1,9 @@
 #include "../../libraries/bikka/irq.h"
 #include "../../libraries/bikka/isr.h"
+#include "../../libraries/bikka/low_level.h"
+#include "../../libraries/bikka/video.h"
+#include "../../libraries/bikka/time.h"
+#include "../../libraries/bikka/keyboard.h"
 
 
 void IRQ_HANDLER(registers_t R){
@@ -19,6 +23,6 @@ void IRQ_INSTALL(void){
 
     asm volatile("sti");
     /* You can now init the keyboard */
-    //INIT_TIMER(50);
-    //_INIT_KEYBOARD(); /* Start the keyboard */
+    TIME_INIT(50);
+    KEYBOARD_INIT(); /* Start the keyboard */
 }

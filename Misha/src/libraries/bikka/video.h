@@ -13,6 +13,7 @@ static const size_t _VGAHeight = 25;
 /* Used for the cursor */
 #define REG_SCREEN_CTRL 0x3D4
 #define REG_SCREEN_DATA 0x3D5
+#define VIDEO_ADDRESS 0xB8000
 
 enum _VGA_COLOR_ {
     COLOR_BLACK = 0,
@@ -49,11 +50,11 @@ void TERMINAL_WRITE(const char *Data, size_t Size);
 void TERMINAL_WRITE_STRING(const char *Data);
 
 /* Cursor functions*/
-int GET_SCREEN_OFFSET(int Col, int Row);
-void SET_CURSOR(int Offset);
+int TERMINAL_GET_SCREEN_OFFSET(int Col, int Row);
+void TERMINAL_SET_CURSOR(int Offset);
 
-/* Scrolling */
-int SCROLLING(int Offset);
+/* TERMINAL_SCROLLING */
+int TERMINAL_SCROLLING(int Offset);
 
 /* Print functions */
 int PutChar(int IC);

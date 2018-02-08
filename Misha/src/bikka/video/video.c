@@ -16,7 +16,7 @@ void TERMINAL_INSTALL(void){
     _TerminalRow = 0;
     _TerminalColumn = 0;
     _TerminalColor = VGAEntryColor(COLOR_WHITE, COLOR_RED); /* Communist red, hehe */
-    _TerminalBuffer = (uint16_t*) 0xB8000; /* Point the buffer to our video address */
+    _TerminalBuffer = (uint16_t*) VIDEO_ADDRESS; /* Point the buffer to our video address */
     for (size_t Y_Axis = 0; Y_Axis < _VGAHeight; Y_Axis++){  /* Y_axis */
         for (size_t X_Axis = 0; X_Axis < _VGAWidth; X_Axis++){ /* X_axis */
             const size_t Index = ((Y_Axis * _VGAWidth) + X_Axis);
@@ -49,7 +49,7 @@ void TERMINAL_PUT_CHAR(char Character){
         _TerminalColumn = _TerminalColumn + 4; /* 4 spaces */
         Character = ' '; /* Make the character go away */
     }
-    int Offset = GET_SCREEN_OFFSET(_TerminalColumn+1, _TerminalRow); /* Get where the cursor should be */
+    int Offset = TERMINAL_GET_SCREEN_OFFSET(_TerminalColumn+1, _TerminalRow); /* Get where the cursor should be */
     TERMINAL_PUT_ENTRY_AT(Character, _TerminalColor, _TerminalColumn, _TerminalRow);
 
     if (++_TerminalColumn == _VGAWidth){
@@ -59,8 +59,8 @@ void TERMINAL_PUT_CHAR(char Character){
         }
     }
     Offset += 2;
-    Offset = SCROLLING(Offset);
-    SET_CURSOR(Offset); /* Set the cursor */
+    Offset = TERMINAL_SCROLLING(Offset);
+    TERMINAL_SET_CURSOR(Offset); /* Set the cursor */
 }
 
 void TERMINAL_WRITE(const char *Data, size_t Size){
@@ -83,9 +83,9 @@ void GeoPrint(const char *Data, int Col, int Row, bool Reset){
     
 }
 
-int GET_SCREEN_OFFSET(int Col, int Row){ return ((Row * _VGAWidth) + Col) * 2; }
+int TERMINAL_GET_SCREEN_OFFSET(int Col, int Row){ return ((Row * _VGAWidth) + Col) * 2; }
 
-void SET_CURSOR(int Offset){
+void TERMINAL_SET_CURSOR(int Offset){
     Offset /= 2;
     PORT_BYTE_OUT(REG_SCREEN_CTRL, 14);
     PORT_BYTE_OUT(REG_SCREEN_DATA, (unsigned char)(Offset >> 8));
@@ -93,14 +93,14 @@ void SET_CURSOR(int Offset){
     PORT_BYTE_OUT(REG_SCREEN_DATA, Offset);
 }
 
-int SCROLLING(int Offset){
+int TERMINAL_SCROLLING(int Offset){
     /* Scrolls the screen if necessary */
     int CursorOffset = Offset;
     int i;
     if (CursorOffset < (_VGAHeight*_VGAWidth*2)){ return CursorOffset; }
-    for (i = 1; i < _VGAHeight; i++){ MEM_CPY(GET_SCREEN_OFFSET(0, i) + 0xB8000, GET_SCREEN_OFFSET(0,i-1) + 0xB8000, _VGAWidth * 2); }
+    for (i = 1; i < _VGAHeight; i++){ MEM_CPY(TERMINAL_GET_SCREEN_OFFSET(0, i) + VIDEO_ADDRESS, TERMINAL_GET_SCREEN_OFFSET(0,i-1) + VIDEO_ADDRESS, _VGAWidth * 2); }
 
-    char *LastLine = GET_SCREEN_OFFSET(0, _VGAHeight-1) + 0xB8000;
+    char *LastLine = TERMINAL_GET_SCREEN_OFFSET(0, _VGAHeight-1) + VIDEO_ADDRESS;
     for (i = 0; i < _VGAWidth * 2; i++){ LastLine[i] = 0; }
     CursorOffset -= 2 * _VGAWidth;
     return CursorOffset;

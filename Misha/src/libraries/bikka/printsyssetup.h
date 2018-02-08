@@ -1,8 +1,8 @@
-#ifndef _PRINTSYSSETUP_H
-#define _PRINTSYSSETUP_H 1
+#ifndef SYS_SETUP_PRINT_H
+#define SYS_SETUP_PRINT_H 1
 
 
-void _PrintSysSetup(void);
+void SYS_SETUP_PRINT(void);
 
 
 #endif

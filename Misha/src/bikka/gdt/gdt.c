@@ -1,17 +1,19 @@
 #include "../../libraries/bikka/gdt.h"
+#include "../../libraries/bikka/tss.h"
 
 
 
 void GDT_INSTALL(void){
     /* Install the Global Descriptor Table */
-  GDT_PTR.limit = sizeof(GDT_ENTRIES) -1;
+  GDT_PTR.limit = (sizeof(GDT_ENTRIES) * 5) -1;
   GDT_PTR.base = (uint32_t)GDT_ENTRIES;
 
-    GDT_SET_ENTRY(0, 0, 0, 0, 0); /* Null 'pointer' needed for gdt to work*/
-    GDT_SET_ENTRY(1, 0, 0xFFFFFFFF, 0x9A, 0xCF);
-    GDT_SET_ENTRY(2, 0, 0xFFFFFFFF, 0x92, 0xCF);
-    GDT_SET_ENTRY(3, 0, 0xFFFFFFFF, 0xFA, 0xCF);
-    GDT_SET_ENTRY(4, 0, 0xFFFFFFFF, 0xF2, 0xCF);
+    GDT_SET_ENTRY(0, 0, 0, 0, 0); /* Null segment */
+    GDT_SET_ENTRY(1, 0, 0xFFFFFFFF, 0x9A, 0xCF); /* Code segment */
+    GDT_SET_ENTRY(2, 0, 0xFFFFFFFF, 0x92, 0xCF); /* Data segment */
+    GDT_SET_ENTRY(3, &tss_entry_t, sizeof(tss_entry_t), 0x89, 0xCF); /* TSS segment */
+    GDT_SET_ENTRY(4, 0, 0xFFFFFFFF, 0xFA, 0xCF); /* User mode code segment */
+    GDT_SET_ENTRY(5, 0, 0xFFFFFFFF, 0xF2, 0xCF); /* User mode data segment */
 
     GDT_FLUSH((uint32_t)(&GDT_PTR));
 }

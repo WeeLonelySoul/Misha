@@ -73,7 +73,7 @@ char SupportedCommands[NCMDS+1][10] = {
     "run" /* Used to run files */
 };
 
-/* And let us define them */ 
+/* And let us define them aka the supported commands dipshit */ 
 #define EXITCMD 0
 #define RESVDCMD 1
 #define CLSCMD 2

@@ -7,6 +7,7 @@
 #include "../../libraries/common.h"
 
 
+
 const char *ServiceCodeName[] = {
         "Error",
     "Esc",
@@ -77,23 +78,28 @@ const char ServiceCodeAscii[] = { '?', '?', '1', '2', '3', '4', '5', '6',
 
 
 static void KEYBOARD_CALLBACK(registers_t Regs){
-    u8 ScanCode = PORT_BYTE_IN(0x60); /* Get the keyboard input */
-    if (ScanCode > ServiceCodeMax){ return; }
+    do{
+        u8 ScanCode = PORT_BYTE_IN(0x60); /* Get the keyboard input */
 
-    if (ScanCode == BACKSPACE){}
-    else if (ScanCode == ENTER){
-        printf("\n");
-        INPUT(KeyBuffer);
-        KeyBuffer[0] = '\0';
-    }else{
-        char Letter = ServiceCodeAscii[(int)ScanCode];
-        char Str[2] = {Letter, '\0'};
-        APPEND(KeyBuffer, Letter);
-        printf(Str);
-    }
-    (void)(Regs);
+        if (ScanCode > ServiceCodeMax){ printf("Error Scancode > ServiceCodeMax!"); return; }
+
+        if (ScanCode == BACKSPACE){}
+
+        else if (ScanCode == ENTER){
+            printf("\n");
+            INPUT(KeyBuffer);
+            KeyBuffer[0] = '\0';
+
+        }else{
+            char Letter = ServiceCodeAscii[(int)ScanCode];
+            char Str[2] = {Letter, '\0'};
+            APPEND(KeyBuffer, Letter);
+            printf(Str);
+        }
+        UNUSED(Regs);
+    }while(1);
 }
 
-void _INIT_KEYBOARD(void){
-    REGISTER_INTERRUPT_HANDLER(IRQ1, KEYBOARD_CALLBACK);
+void KEYBOARD_INIT(void){
+    ISR_REGISTER_INTERRUPT_HANDLER(IRQ1, KEYBOARD_CALLBACK);
 }

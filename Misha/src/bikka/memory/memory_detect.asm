@@ -3,18 +3,18 @@
 [extern PANIC] ; Look into Panic.c for this function
 
 ; Making the functions global, this means that they can be reached in the C code
-global LOW_MEMORY_DETECT
-global HIGH_MEMORY_DETECT
+global MEMORY_DETECT_LOW
+global MEMORY_DETECT_HIGH
 
 ; Returns the amount of low memory detected, aka everything below 1MB
-LOW_MEMORY_DETECT:
+MEMORY_DETECT_LOW:
     clc
     int 0x12 ; Requesting low memory size
     jc PANIC_ASM
     ret ; This holds the amount of low memory
 
 ; Returns the amount of low memory detected, aka everything above 1MB
-HIGH_MEMORY_DETECT:
+MEMORY_DETECT_HIGH:
    xor cx, cx
    xor dx, dx
    mov ax, 0xE8001

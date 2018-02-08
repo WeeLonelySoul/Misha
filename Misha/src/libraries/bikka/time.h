@@ -4,6 +4,6 @@
 
 
 static void TIMER_CALLBACK(registers_t Regs);
-void INIT_TIMER(u32 Freq);
+void TIME_INIT(u32 Freq);
 
 #endif
