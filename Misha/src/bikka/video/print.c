@@ -57,13 +57,15 @@ int printf(const char *restrict Format, ...){
         }else if(*Format == 's'){
             Format++;
             const char *STR = va_arg(_PARAMETERS, const char*);
-            size_t Len = STRLEN(STR);
+            size_t Len = STR_LEN(STR);
             if (MaxRem < Len) { PANIC("Error on function printf! Len (Length) was bigger than MaxRem (1)"); }
             if (!print(STR, Len)) { return -1; }
             Written += Len;
+        }else if(*Format == 'd'){
+                
         }else{
             Format = FormatBegunAt;
-            size_t Len = STRLEN(Format);
+            size_t Len = STR_LEN(Format);
             if (MaxRem < Len){ PANIC("Error on function printf! Len (Length) was bigger than MaxRem (2)"); }
             if (!print(Format, Len)){ return -1; }
             Written += Len;
@@ -72,4 +74,9 @@ int printf(const char *restrict Format, ...){
     }
     va_end(_PARAMETERS);
     return Written;
+}
+
+void println(const char *CharacterToPrint, ...){
+    /* printf wrapper that ends a newline after each print */
+    printf("%s\n", CharacterToPrint);
 }

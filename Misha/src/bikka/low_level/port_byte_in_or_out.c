@@ -12,5 +12,5 @@ unsigned char PORT_BYTE_IN(unsigned short Port){
 
 void PORT_BYTE_OUT(unsigned short Port, unsigned char Data){
     /* Send byte */
-    asm("outb %%al , %%dx" : :"a" (Data), "d" (Port));
+    __asm__("outb %%al , %%dx" : :"a" (Data), "d" (Port));
 }

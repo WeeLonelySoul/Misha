@@ -2,7 +2,14 @@
 #include "../../libraries/bikka/idt.h"
 #include "../../libraries/bikka/irq.h"
 #include "../../libraries/bikka/low_level.h"
+#include "../../libraries/bikka/video.h"
+#include "../../libraries/bikka/keyboard.h"
+#include "../../libraries/bikka/time.h"
+#include "../../libraries/bikka/memory.h"
 
+
+
+isr_t InterruptHandler[256];
 
 char *exception_messages[] = {
     "Division By Zero",
@@ -48,39 +55,7 @@ void ISR_INSTALL(void){
 
     */
 
-    IDT_SET_GATE(0, (u32)isr0);
-    IDT_SET_GATE(1, (u32)isr1);
-    IDT_SET_GATE(2, (u32)isr2);
-    IDT_SET_GATE(3, (u32)isr3);
-    IDT_SET_GATE(4, (u32)isr4);
-    IDT_SET_GATE(5, (u32)isr5);
-    IDT_SET_GATE(6, (u32)isr6);
-    IDT_SET_GATE(7, (u32)isr7);
-    IDT_SET_GATE(8, (u32)isr8);
-    IDT_SET_GATE(9, (u32)isr9);
-    IDT_SET_GATE(10, (u32)isr10);
-    IDT_SET_GATE(11, (u32)isr11);
-    IDT_SET_GATE(12, (u32)isr12);
-    IDT_SET_GATE(13, (u32)isr13);
-    IDT_SET_GATE(14, (u32)isr14);
-    IDT_SET_GATE(15, (u32)isr15);
-    IDT_SET_GATE(16, (u32)isr16);
-    IDT_SET_GATE(17, (u32)isr17);
-    IDT_SET_GATE(18, (u32)isr18);
-    IDT_SET_GATE(19, (u32)isr19);
-    IDT_SET_GATE(20, (u32)isr20);
-    IDT_SET_GATE(21, (u32)isr21);
-    IDT_SET_GATE(22, (u32)isr22);
-    IDT_SET_GATE(23, (u32)isr23);
-    IDT_SET_GATE(24, (u32)isr24);
-    IDT_SET_GATE(25, (u32)isr25);
-    IDT_SET_GATE(26, (u32)isr26);
-    IDT_SET_GATE(27, (u32)isr27);
-    IDT_SET_GATE(28, (u32)isr28);
-    IDT_SET_GATE(29, (u32)isr29);
-    IDT_SET_GATE(30, (u32)isr30);
-    IDT_SET_GATE(31, (u32)isr31);    
-
+    /* Remap */
     PORT_WORD_OUT(0x20, 0x11);
     PORT_WORD_OUT(0xA0, 0x11);
     PORT_WORD_OUT(0x21, 0x20);
@@ -92,25 +67,24 @@ void ISR_INSTALL(void){
     PORT_WORD_OUT(0x21, 0x0);
     PORT_WORD_OUT(0xA1, 0x0);
 
-    IDT_SET_GATE(32, (u32)irq0);
-    IDT_SET_GATE(33, (u32)irq1);
-    IDT_SET_GATE(34, (u32)irq2);
-    IDT_SET_GATE(35, (u32)irq3);
-    IDT_SET_GATE(36, (u32)irq4);
-    IDT_SET_GATE(37, (u32)irq5);
-    IDT_SET_GATE(38, (u32)irq6);
-    IDT_SET_GATE(39, (u32)irq7);
-    IDT_SET_GATE(40, (u32)irq8);
-    IDT_SET_GATE(41, (u32)irq9);
-    IDT_SET_GATE(42, (u32)irq10);
-    IDT_SET_GATE(43, (u32)irq11);
-    IDT_SET_GATE(44, (u32)irq12);
-    IDT_SET_GATE(45, (u32)irq13);
-    IDT_SET_GATE(46, (u32)irq14);
-    IDT_SET_GATE(47, (u32)irq15);
+    IDT_SET_GATE(32, (u32)irq0, 0x08, 0x8E);
+    IDT_SET_GATE(33, (u32)irq1, 0x08, 0x8E);
+    IDT_SET_GATE(34, (u32)irq2, 0x08, 0x8E);
+    IDT_SET_GATE(35, (u32)irq3, 0x08, 0x8E);
+    IDT_SET_GATE(36, (u32)irq4, 0x08, 0x8E);
+    IDT_SET_GATE(37, (u32)irq5, 0x08, 0x8E);
+    IDT_SET_GATE(38, (u32)irq6, 0x08, 0x8E);
+    IDT_SET_GATE(39, (u32)irq7, 0x08, 0x8E);
+    IDT_SET_GATE(40, (u32)irq8, 0x08, 0x8E);
+    IDT_SET_GATE(41, (u32)irq9, 0x08, 0x8E);
+    IDT_SET_GATE(42, (u32)irq10, 0x08, 0x8E);
+    IDT_SET_GATE(43, (u32)irq11, 0x08, 0x8E);
+    IDT_SET_GATE(44, (u32)irq12, 0x08, 0x8E);
+    IDT_SET_GATE(45, (u32)irq13, 0x08, 0x8E);
+    IDT_SET_GATE(46, (u32)irq14, 0x08, 0x8E);
+    IDT_SET_GATE(47, (u32)irq15, 0x08, 0x8E);
 
-    /* And finally */
-    IDT_SET(); 
+    IDT_FLUSH((u32)&IDT_REG);
 }
 
 void ISR_HANDLER(registers_t R){

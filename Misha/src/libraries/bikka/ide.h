@@ -101,7 +101,7 @@ static u8 HD1_Type;
 static u8 HD1_Heads;
 static u8 HD1_SecPerTrk;
 static u16 HD1_Cyls;
-static u32 HD_EXECH;
+static u32 HD_EXCH;
 static u32 HD_MSG;
 static u32 HD_MSG2;
 
@@ -180,5 +180,6 @@ static u32 IDE_SETUP_SEEK(u32 DLBA, u32 NBlks);
 static u32 IDE_READ_SECTORS(u32 Cylinder, u32 HdSect, u8 *DataRet);
 static u32 IDE_HDDEV_OP(u32 DDevice, u32 DOpNum, u32 DLBA, u32 DnBLOCKS, u8 *Data);
 static u32 IDE_HDDEV_STAT(u32 DDevice, s8 *StatRet, u32 DStatatusMax, u32 SDInitData);
+static u32 IDE_HDDEV_INIT(u32 DDevNum, s8 *InitData, u32 SDInitData);
 
 #endif

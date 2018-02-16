@@ -3,6 +3,7 @@
 
 /* And now we have booleans */
 #include <stddef.h>
+#include "bikka/panic.h"
 typedef int bool; 
 #define true 1
 #define false 0
@@ -20,14 +21,19 @@ typedef          short s16;
 typedef unsigned char u8;
 typedef char s8;
 
-#define UNUSED(x)(void)(x)
 
-#define low_16(address) (u16)((address) & 0xFFFF)
-#define high_16(address) (u16)(((address) >> 16) & 0xFFFF)
+#define UNUSED(x)(void)(x)
+#define ARRAY_LENGTH(X) sizeof(X)/sizeof(*X) /* Returns the array length */
+
+#define ASSERT(b) ((b) ? (void)0 : PANIC_ASSERT())
+
+
 /* Functions */
-size_t STRLEN(const char *String); /* String length */
+size_t STR_LEN(const char *String); /* String length */
 void INT_TO_ASCII(int N, char STR[]); /* Turns int to ascii value, which also happens to be int */
 void REVERSE(char S[]); /* Reverses the order of S[] so hello would be olleh */
 int STR_CMP(char String1[], char String2[]); /* Compares String1 to String2 and returns the result */
 void APPEND(char String1[], char CharacterToAdd); /* Adds CharacterToAdd to the end of String1 */
+void BACKSPACE_(char String[]);
+
 #endif

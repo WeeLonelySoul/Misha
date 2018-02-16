@@ -1,5 +1,6 @@
 #ifndef IRQ_H
 #define IRQ_H 1
+#include "../common.h"
 
 /* These are defined in irq.asm */
 extern void irq0();
@@ -37,5 +38,5 @@ extern void irq15();
 #define IRQ15 47
 
 void IRQ_INSTALL(void);
-
+bool ARE_INTERRUPTS_ENABLED(void);
 #endif

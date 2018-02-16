@@ -5,7 +5,7 @@ VIRTUAL_MACHINE_CONFIG = -kernel
 COLOR_YELLOW = \e[93m
 COLOR_BLUE = \e[1;34m
 COLOR_END_THE_SPREAD = \e[0m
-FLAGS = -ffreestanding -O2 -nostdlib
+FLAGS = -ffreestanding -nostdlib
 COMPILER = ./compilers/bin/i686-elf-gcc
 COMPILER_DIR = ./compilers/i686-elf
 
@@ -51,7 +51,7 @@ compile:
 	fi; \
 
 	# Finishing up
-	$(COMPILER) -T link.ld -o $(FINISHED_AREA)/Misha.bin $(FLAGS) $(OUTPUT_AREA)/critical/boot.o $(OUTPUT_AREA)/critical/bikka.o $(OUTPUT_AREA)/*.o -lgcc 	
+	$(COMPILER) -T link.ld -o $(FINISHED_AREA)/Misha.bin $(FLAGS) $(OUTPUT_AREA)/critical/boot.o $(OUTPUT_AREA)/critical/bikka.o $(OUTPUT_AREA)/*.o  	
 
 
 clean:
@@ -101,7 +101,14 @@ help:
 	@echo ""
 	@echo -e "$(COLOR_BLUE) clean-compilers $(COLOR_END_THE_SPREAD)"
 	@echo -e "$(COLOR_YELLOW)  -> Removes all the compiled files in $(COLOR_BLUE)'./compilers/'$(COLOR_END_THE_SPREAD)" 
-	
+
+	@echo ""
+	@echo -e "$(COLOR_BLUE) iso $(COLOR_END_THE_SPREAD)"
+	@echo -e "$(COLOR_YELLOW)  -> Creates an iso image in the folder $(COLOR_BLUE)'./finished_compile_area'$(COLOR_END_THE_SPREAD)"
+
+	@echo ""
+	@echo -e "$(COLOR_BLUE) iso-run $(COLOR_END_THE_SPREAD)"
+	@echo -e "$(COLOR_YELLOW)  -> Creates an iso image and runs it $(COLOR_END_THE_SPREAD)"
 
 
 compile-compilers:
@@ -110,3 +117,18 @@ compile-compilers:
 
 clean-compilers:
 	rm -r compilers/*
+
+
+iso: compile
+	mkdir -p finished_compile_area/iso/
+	mkdir -p finished_compile_area/iso/boot/
+	mkdir -p finished_compile_area/iso/boot/grub
+
+	cp finished_compile_area/Misha.bin finished_compile_area/iso/
+	@echo -e 'menuentry "Misha" {\n multiboot /Misha.bin	\n}' > finished_compile_area/iso/boot/grub/grub.cfg
+	grub-mkrescue -o finished_compile_area/Misha.iso finished_compile_area/iso/
+
+
+iso-run: compile iso
+	$(VIRTUAL_MACHINE) $(FINISHED_AREA)/Misha.iso
+	

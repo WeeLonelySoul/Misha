@@ -52,6 +52,10 @@ void TERMINAL_WRITE_STRING(const char *Data);
 /* Cursor functions*/
 int TERMINAL_GET_SCREEN_OFFSET(int Col, int Row);
 void TERMINAL_SET_CURSOR(int Offset);
+int TERMINAL_GET_CURSOR(void);
+
+/* Backspace */
+void TERMINAL_BACKSPACE(void);
 
 /* TERMINAL_SCROLLING */
 int TERMINAL_SCROLLING(int Offset);
@@ -60,6 +64,10 @@ int TERMINAL_SCROLLING(int Offset);
 int PutChar(int IC);
 static bool print(const char *Data, size_t Length);
 int printf(const char *restrict Format, ...);
-void GeoPrint(const char *Data, int Col, int Row, bool Reset);
+void GeoPrint(const char *Data, int Col, int Row);
+void println(const char *CharacterToPrint, ...);
+
+
+void USERMODE_TERMINAL_INSTALL(enum _VGA_COLOR_ Color);
 
 #endif

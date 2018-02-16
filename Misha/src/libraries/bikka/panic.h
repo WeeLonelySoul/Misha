@@ -3,6 +3,6 @@
 
 #include "../common.h"
 
-void PANIC(string ReasonForPanic);
-
+void PANIC(char *ReasonForPanic);
+void PANIC_ASSERT();
 #endif

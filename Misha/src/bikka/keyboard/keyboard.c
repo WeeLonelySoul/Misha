@@ -6,10 +6,11 @@
 #include "../../libraries/shell.h"
 #include "../../libraries/common.h"
 
+char KeyBuffer[256]; /* Buffer for the keyboard */
 
 
 const char *ServiceCodeName[] = {
-        "Error",
+    "Error",
     "Esc",
     "1",
     "2",
@@ -77,13 +78,13 @@ const char ServiceCodeAscii[] = { '?', '?', '1', '2', '3', '4', '5', '6',
         'B', 'N', 'M', ',', '.', '/', '?', '?', '?', ' '};
 
 
-static void KEYBOARD_CALLBACK(registers_t Regs){
+void KEYBOARD_CALLBACK(registers_t Regs){
     do{
         u8 ScanCode = PORT_BYTE_IN(0x60); /* Get the keyboard input */
 
         if (ScanCode > ServiceCodeMax){ printf("Error Scancode > ServiceCodeMax!"); return; }
 
-        if (ScanCode == BACKSPACE){}
+        if (ScanCode == BACKSPACE){ BACKSPACE_(KeyBuffer); TERMINAL_BACKSPACE(); }
 
         else if (ScanCode == ENTER){
             printf("\n");
@@ -96,10 +97,11 @@ static void KEYBOARD_CALLBACK(registers_t Regs){
             APPEND(KeyBuffer, Letter);
             printf(Str);
         }
-        UNUSED(Regs);
+        //UNUSED(Regs);
     }while(1);
+
 }
 
 void KEYBOARD_INIT(void){
-    ISR_REGISTER_INTERRUPT_HANDLER(IRQ1, KEYBOARD_CALLBACK);
+    ISR_REGISTER_INTERRUPT_HANDLER(IRQ1, &KEYBOARD_CALLBACK);
 }

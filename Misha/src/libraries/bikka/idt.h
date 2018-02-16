@@ -1,7 +1,6 @@
 #ifndef IDT_H
 #define IDT_H 1
 
-#define KERNEL_CS 0x08
 #define IDT_ENTRIES 256
 
 #include "../common.h"
@@ -24,7 +23,7 @@ idt_registers_t IDT_REG;
 
 
 /* Functions */
-void IDT_SET_GATE(int N, u32 Handler);
-void IDT_SET(void);
-extern void IDT_FLUSH(); /* Look in the idt.asm file */
+void IDT_SET_GATE(int Num, u32 Base, u16 Sel, u8 Flags);
+void IDT_INSTALL(void);
+extern void IDT_FLUSH(u32 IDT_PTR); /* Look in the idt.asm file */
 #endif

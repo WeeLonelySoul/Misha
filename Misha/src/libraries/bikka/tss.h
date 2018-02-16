@@ -31,6 +31,11 @@ struct tss_entry{
    u32 ldt;
    u16 trap; /* It only makes it better */
    u16 iomap_base;
-} __attribute__((packed)) tss_entry_t;
+} __attribute__((packed));
+
+typedef struct tss_entry tss_entry_t;
+
+extern void TSS_FLUSH();
+void TSS_WRITE(s32 Num, u16 SS0, u32 Esp0);
 
 #endif 

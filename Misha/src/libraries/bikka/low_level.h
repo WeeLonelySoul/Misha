@@ -17,4 +17,6 @@ unsigned char PORT_BYTE_IN(unsigned short Port); /* Recieve byte */
 void PORT_BYTE_OUT(unsigned short Port, unsigned char Data); /* Send byte */
 unsigned short PORT_WORD_IN(unsigned short Port); /* Recieve word */
 void PORT_WORD_OUT(unsigned short Port, unsigned short Data);  /* Send word */
+
+
 #endif

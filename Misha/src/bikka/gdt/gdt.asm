@@ -1,22 +1,20 @@
 ; These functions are used in gdt.c
-; Courtesy of szhou42 on github
-; Check out his/her project
-; -> https://github.com/szhou42/osdev
+; Courtesy of james Molloy
+; Check out his guides
+; -> http://www.jamesmolloy.co.uk/tutorial_html/4.-The%20GDT%20and%20IDT.html
 
 global GDT_FLUSH
 
 GDT_FLUSH:
-    mov eax, [esp + 4]
-    lgdt [eax]
+   mov eax, [esp+4]  ; Get the pointer to the GDT, passed as a parameter.
+   lgdt [eax]        ; Load the new GDT pointer
 
-    mov ax, 0x10
-    mov ds, ax
-    mov es, ax
-    mov fs, ax
-    mov gs, ax
-    mov ss,ax
-
-    jmp 0x08:flush
-
-flush:
-    ret
+   mov ax, 0x10      ; 0x10 is the offset in the GDT to our data segment
+   mov ds, ax        ; Load all data segment selectors
+   mov es, ax
+   mov fs, ax
+   mov gs, ax
+   mov ss, ax
+   jmp 0x08:.flush   ; 0x08 is the offset to our code segment: Far jump!
+.flush:
+   ret

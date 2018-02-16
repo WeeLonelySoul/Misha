@@ -1,7 +1,7 @@
 #include "../../libraries/common.h"
 
 
-size_t STRLEN(const char *String){
+size_t STR_LEN(const char *String){
     /*
         Returns the size of String
         We init a size_t called LengthOfString, which will hold our length in the form of a int

@@ -46,7 +46,6 @@ typedef struct {
 
 typedef void (*isr_t)(registers_t);
 
-isr_t InterruptHandler[256];
 
 
 void ISR_INSTALL(void);
