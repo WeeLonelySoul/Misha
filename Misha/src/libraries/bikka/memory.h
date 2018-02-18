@@ -40,13 +40,14 @@ extern int MEMORY_DETECT_HIGH(); /* Look in the memory_detect.asm file */
 
 
 /* Memory functions */
-void *MEM_CPY(char *Src, char *Dest, int Bytes); /* Memory copy */
+void *MEM_CPY(char *Dest, char *Src, int Bytes); /* Memory copy */
 int MEM_CMP(const void *CompareA, const void *CompareB, long Size); /* Memory compare */
 void *MEM_ALC(void *Buffer, int Value, long Size); /* Memory allocate */
 void MEM_DLC(void *MemoryBlock, long MemoryBlockSize); /* Memory deallocate */
 void *malloc(void *Buffer, int Value, long Size); /* Wrapper function for MEM_ALC */
 void mdelloc(void *MemoryBlock, long MemoryBlockSize); /* Wrapper function for MEM_DLC */
-void* memset(void* bufptr, int value, size_t size);
+void* memset(u8* Dest, int value, u32 Size);
+void *MEM_CPY_2(char *Src, char *Dest, int Bytes);
 
 u32 kmalloc(u32 Sz);
 u32 kmalloc_int(u32 Sz, int Align, u32 *Phys);

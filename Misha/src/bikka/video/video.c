@@ -113,7 +113,7 @@ int TERMINAL_SCROLLING(int Offset){
     int CursorOffset = Offset;
     int i;
     if (CursorOffset < (_VGAHeight*_VGAWidth*2)){ return CursorOffset; }
-    for (i = 1; i < _VGAHeight; i++){ MEM_CPY(TERMINAL_GET_SCREEN_OFFSET(0, i) + VIDEO_ADDRESS, TERMINAL_GET_SCREEN_OFFSET(0,i-1) + VIDEO_ADDRESS, _VGAWidth * 2); }
+    for (i = 1; i < _VGAHeight; i++){ MEM_CPY_2(TERMINAL_GET_SCREEN_OFFSET(0, i) + VIDEO_ADDRESS, TERMINAL_GET_SCREEN_OFFSET(0,i-1) + VIDEO_ADDRESS, _VGAWidth * 2); }
 
     char *LastLine = TERMINAL_GET_SCREEN_OFFSET(0, _VGAHeight-1) + VIDEO_ADDRESS;
     for (i = 0; i < _VGAWidth * 2; i++){ LastLine[i] = 0; }

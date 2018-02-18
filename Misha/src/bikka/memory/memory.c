@@ -15,7 +15,20 @@ page_directory_t *KernelDirectory = 0;
 page_directory_t *CurrentDirectory = 0;
 
 
-void *MEM_CPY(char *Src, char *Dest, int Bytes){
+void *MEM_CPY(char *Dest, char *Src, int Bytes){
+    /* Moves Src to Dest in memory */
+    /*unsigned char *Destination = (unsigned char*)Dest;
+    const unsigned char *Source = (unsigned char*)Src;
+    for (long i = 0; i < Bytes; i++){ Destination[i] = Source[i]; }
+    return Dest;*/
+
+    const u8 *sp = (const u8 *)Src;
+    u8 *dp = (u8 *)Dest;
+    
+    for(; Bytes != 0; Bytes--) *dp++ = *sp++;
+}
+
+void *MEM_CPY_2(char *Src, char *Dest, int Bytes){
     /* Moves Src to Dest in memory */
     unsigned char *Destination = (unsigned char*)Dest;
     const unsigned char *Source = (unsigned char*)Src;
@@ -52,11 +65,14 @@ void *malloc(void *Buffer, int Value, long Size){ return MEM_ALC(Buffer, Value, 
 void mdelloc(void *MemoryBlock, long MemoryBlockSize){ MEM_DLC(MemoryBlock, MemoryBlockSize); } /* Wrapper function for those who prefer to type mdelloc */
 
 
-void* memset(void* bufptr, int value, size_t size) {
-	unsigned char* buf = (unsigned char*) bufptr;
+void* memset(u8* Dest, int value, u32 Size) {
+	/*unsigned char* buf = (unsigned char*) bufptr;
 	for (size_t i = 0; i < size; i++)
 		buf[i] = (unsigned char) value;
-	return bufptr;
+	return bufptr;*/
+
+    u8 *Temp = (u8*)Dest;
+    for (; Size != 0; Size--){ *Temp++ = value; }
 }
 
 u32 kmalloc_int(u32 Sz, int Align, u32 *Phys){
@@ -159,7 +175,7 @@ void MEMORY_PAGING_INSTALL(void){
     for (i = KHEAP_START ; i < KHEAP_START+KHEAP_INITIAL_SIZE; i += 0x1000){ MEMORY_PAGING_GET_PAGE(i, 1, KernelDirectory); }
 
     i = 0;
-    while (i < PlacementAddress+0x1000){
+    while (i < 0x400000){
         MEMORY_FRAME_ALLOC(MEMORY_PAGING_GET_PAGE(i, 1, KernelDirectory), 0, 0);
         i += 0x1000;
     }

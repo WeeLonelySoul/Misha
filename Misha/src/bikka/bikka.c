@@ -34,7 +34,7 @@ void BIKKA_MAIN(u32 InitialStack){
 
     /* Core functions for pretty much every operating systems */
     GDT_INSTALL(); /* Global Descriptor Table */
-    ISR_INSTALL(); /* Interrupt handler */
+    //ISR_INSTALL(); /* Interrupt handler */
     IDT_INSTALL();
     IRQ_INSTALL(); /* Interrupt request */
 
@@ -42,8 +42,8 @@ void BIKKA_MAIN(u32 InitialStack){
     /* Less but still important functions */
     TERMINAL_INSTALL(); /* Install the terminal */
     // MEMORY_INSTALL(); /* Install the memory management */
-    //MEMORY_PAGING_INSTALL(); /* Install paging */
-    //TASK_INSTALL();
+    MEMORY_PAGING_INSTALL(); /* Install paging */
+    TASK_INSTALL();
 
     // FILESYSTEM_FIND_DISK(); /* Find the disks */
     // FILESYSTEM_SETUP_DISK(); /* Make sure the disc are set and ready for use */
@@ -54,7 +54,9 @@ void BIKKA_MAIN(u32 InitialStack){
     GeoPrint(Logo , 20, 1); /* New print function */
     SYS_SETUP_PRINT(); /* Print out the details regarding the system */
 
-    //SYSCALL_INSTALL();
-   // MISHA_START(); /* Enter usermode and start Misha */
+    if (!InitialEsp){printf("Hi");}
+    SYSCALL_INSTALL();
+    //MISHA_START(); /* Enter usermode and start Misha */
+    //INPUT();
     //for(;;){}
 }

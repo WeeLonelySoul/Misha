@@ -4,7 +4,7 @@
 
 extern page_directory_t *CurrentDirectory;
 extern page_directory_t *KernelDirectory;
-extern InitialEsp;
+extern u32 InitialEsp;
 volatile task_t *CurrentTask;
 volatile task_t *ReadyQueue;
 u32 NextPid = 1;
@@ -19,6 +19,7 @@ void TASK_INSTALL(void){
     CurrentTask->eip = 0;
     CurrentTask->page_directory = CurrentDirectory;
     CurrentTask->next = 0;
+    CurrentTask->kernel_stack = kmalloc_a(KERNEL_STACK_SIZE);
 
     asm volatile("sti");
 }
@@ -26,7 +27,7 @@ void TASK_INSTALL(void){
 void TASK_MOVE_STACK(void *NewStackStart, u32 StackSize){
     u32 i;
     for (i = (u32)NewStackStart; i >= ((u32)NewStackStart-StackSize); i -= 0x1000){
-            MEMORY_FRAME_ALLOC(MEMORY_PAGING_GET_PAGE(i, 1, CurrentDirectory), 0, 1);
+        MEMORY_FRAME_ALLOC(MEMORY_PAGING_GET_PAGE(i, 1, CurrentDirectory), 0, 1);
     }
     u32 PdAddr;
     asm volatile("mov %%cr3, %0" : "=r" (PdAddr));
@@ -43,10 +44,10 @@ void TASK_MOVE_STACK(void *NewStackStart, u32 StackSize){
     u32 NewStackPointer = OldStackPointer + Offset;
     u32 NewBasePointer = OldBasePointer + Offset;
 
-    MEM_CPY((void*)NewStackPointer, (void*)OldStackPointer, InitialEsp-OldStackPointer);
+    MEM_CPY((void*)NewStackPointer, (void*)OldStackPointer, InitialEsp - OldStackPointer);
 
-    for (i = (u32)NewStackStart; i > (u32)NewStackStart-StackSize; i -= 4){
-        u32 TMP = *(u32*)i;
+    for (i = (u32)NewStackStart; i > (u32)NewStackStart - StackSize; i -= 4){
+        u32 TMP = * (u32*)i;
         if ((OldStackPointer < TMP) && (TMP < InitialEsp)){
             TMP += Offset;
             u32 *TMP2 = (u32*)i;

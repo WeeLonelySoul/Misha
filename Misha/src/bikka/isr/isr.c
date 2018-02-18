@@ -56,33 +56,9 @@ void ISR_INSTALL(void){
     */
 
     /* Remap */
-    PORT_WORD_OUT(0x20, 0x11);
-    PORT_WORD_OUT(0xA0, 0x11);
-    PORT_WORD_OUT(0x21, 0x20);
-    PORT_WORD_OUT(0xA1, 0x28);
-    PORT_WORD_OUT(0x21, 0x04);
-    PORT_WORD_OUT(0xA1, 0x02);
-    PORT_WORD_OUT(0x21, 0x01);
-    PORT_WORD_OUT(0xA1, 0x01);
-    PORT_WORD_OUT(0x21, 0x0);
-    PORT_WORD_OUT(0xA1, 0x0);
 
-    IDT_SET_GATE(32, (u32)irq0, 0x08, 0x8E);
-    IDT_SET_GATE(33, (u32)irq1, 0x08, 0x8E);
-    IDT_SET_GATE(34, (u32)irq2, 0x08, 0x8E);
-    IDT_SET_GATE(35, (u32)irq3, 0x08, 0x8E);
-    IDT_SET_GATE(36, (u32)irq4, 0x08, 0x8E);
-    IDT_SET_GATE(37, (u32)irq5, 0x08, 0x8E);
-    IDT_SET_GATE(38, (u32)irq6, 0x08, 0x8E);
-    IDT_SET_GATE(39, (u32)irq7, 0x08, 0x8E);
-    IDT_SET_GATE(40, (u32)irq8, 0x08, 0x8E);
-    IDT_SET_GATE(41, (u32)irq9, 0x08, 0x8E);
-    IDT_SET_GATE(42, (u32)irq10, 0x08, 0x8E);
-    IDT_SET_GATE(43, (u32)irq11, 0x08, 0x8E);
-    IDT_SET_GATE(44, (u32)irq12, 0x08, 0x8E);
-    IDT_SET_GATE(45, (u32)irq13, 0x08, 0x8E);
-    IDT_SET_GATE(46, (u32)irq14, 0x08, 0x8E);
-    IDT_SET_GATE(47, (u32)irq15, 0x08, 0x8E);
+
+
 
     IDT_FLUSH((u32)&IDT_REG);
 }

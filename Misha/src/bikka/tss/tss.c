@@ -15,6 +15,7 @@ void TSS_WRITE(s32 Num, u16 SS0, u32 Esp0){
     tss_entry_.esp0 = Esp0;
 
     tss_entry_.cs = 0x0b;
+
     /* What even is this */
     tss_entry_.ss = tss_entry_.ds = tss_entry_.es = tss_entry_.fs = tss_entry_.gs = 0x13; 
 }

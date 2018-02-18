@@ -34,7 +34,7 @@ void GDT_SET_ENTRY(s32 Index, u32 Base, u32 Limit, u8 Access, u8 Gran){
     GDT_ENTRIES[Index].base_high = (Base >> 24) & 0xFF;
 
     GDT_ENTRIES[Index].limit_low = (Limit & 0xFFFF);
-    GDT_ENTRIES[Index].granularity = ((Limit >> 16) & 0x0F);
+    GDT_ENTRIES[Index].granularity = (Limit >> 16) & 0x0F;
 
     GDT_ENTRIES[Index].granularity |= (Gran & 0xF0);
     GDT_ENTRIES[Index].access = Access;
