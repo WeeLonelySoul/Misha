@@ -3,6 +3,9 @@
 # Program name
 @name = Misha
 
+# Install loc
+@install_loc = ./Misha/finished_compile_area
+
 # Creator name
 @author = Nicholas
 
