@@ -1,0 +1,15 @@
+# Installation file for compatability with krul
+
+# Program name
+@name = Misha
+
+# Creator name
+@author = Nicholas
+
+# Makefile settings
+@makefile = true
+@makefile_loc = ./Misha/makefile
+
+# Log
+@log = true
+@log = ./Misha_compile_log
