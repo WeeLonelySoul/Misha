@@ -11,7 +11,7 @@
 
 # Makefile settings
 @makefile = true
-@makefile_loc = ./Misha/makefile
+@makefile_loc = ./Misha/
 
 # Log
 @log = true
