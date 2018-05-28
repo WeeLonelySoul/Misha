@@ -1,1 +1,1 @@
-This is where you'll be able to find the atest version of Misha
+This is where you'll be able to find the latest version of Misha
