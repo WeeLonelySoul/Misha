@@ -7,8 +7,6 @@
 #include "../../libraries/bikka/time.h"
 #include "../../libraries/bikka/memory.h"
 
-
-
 isr_t InterruptHandler[256];
 
 char *exception_messages[] = {
@@ -49,19 +47,6 @@ char *exception_messages[] = {
     "Reserved"
 };
 
-void ISR_INSTALL(void){
-    /* Install our ISRs 
-        This code makes me wanna puke. but I'm not changing it now and dooming the future me (5/2/2018)
-
-    */
-
-    /* Remap */
-
-
-
-
-    IDT_FLUSH((u32)&IDT_REG);
-}
 
 void ISR_HANDLER(registers_t R){
     printf("\n\nError Received interrupt: ");
@@ -73,6 +58,4 @@ void ISR_HANDLER(registers_t R){
     printf("\n");
 }
 
-void ISR_REGISTER_INTERRUPT_HANDLER(u8 N, isr_t Handler){
-    InterruptHandler[N] = Handler;
-}
+void ISR_REGISTER_INTERRUPT_HANDLER(u8 N, isr_t Handler){ InterruptHandler[N] = Handler; }

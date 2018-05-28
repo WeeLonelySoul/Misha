@@ -47,7 +47,7 @@ void MEM_DLC(void *MemoryBlock, long MemoryBlockSize); /* Memory deallocate */
 void *malloc(void *Buffer, int Value, long Size); /* Wrapper function for MEM_ALC */
 void mdelloc(void *MemoryBlock, long MemoryBlockSize); /* Wrapper function for MEM_DLC */
 void* memset(u8* Dest, int value, u32 Size);
-void *MEM_CPY_2(char *Src, char *Dest, int Bytes);
+void *MEM_CPY_2(int *Src, char *Dest, int Bytes);
 
 u32 kmalloc(u32 Sz);
 u32 kmalloc_int(u32 Sz, int Align, u32 *Phys);

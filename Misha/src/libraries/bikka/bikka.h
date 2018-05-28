@@ -8,7 +8,7 @@ It's a lot easier to keep it here, and just refrence to it every time I want to 
 
 */
 
-#define LATEST_VERSION "2.1.32" /* Latest version */
+#define LATEST_VERSION "2.1.4" /* Latest version */
 
 
 #endif

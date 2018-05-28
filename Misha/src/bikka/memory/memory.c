@@ -28,7 +28,7 @@ void *MEM_CPY(char *Dest, char *Src, int Bytes){
     for(; Bytes != 0; Bytes--) *dp++ = *sp++;
 }
 
-void *MEM_CPY_2(char *Src, char *Dest, int Bytes){
+void *MEM_CPY_2(int *Src, char *Dest, int Bytes){
     /* Moves Src to Dest in memory */
     unsigned char *Destination = (unsigned char*)Dest;
     const unsigned char *Source = (unsigned char*)Src;

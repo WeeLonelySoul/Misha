@@ -3,7 +3,7 @@
 ; Check out his guides
 ; -> http://www.jamesmolloy.co.uk/tutorial_html/4.-The%20GDT%20and%20IDT.html
 
-global GDT_FLUSH
+[global GDT_FLUSH]
 
 GDT_FLUSH:
    mov eax, [esp+4]  ; Get the pointer to the GDT, passed as a parameter.

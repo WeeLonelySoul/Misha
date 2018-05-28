@@ -4,22 +4,13 @@
 #include "../../libraries/bikka/irq.h"
 #include "../../libraries/bikka/memory.h"
 
-void IDT_INSTALL(void){
+void IDT_AND_ISR_INSTALL(void){
     IDT_REG.limit = sizeof(idt_gate_t) * 256 - 1;
     IDT_REG.base = (u32)&IDT;
 
     memset(&IDT, 0, sizeof(idt_gate_t)*256);
     
-    PORT_WORD_OUT(0x20, 0x11);
-    PORT_WORD_OUT(0xA0, 0x11);
-    PORT_WORD_OUT(0x21, 0x20);
-    PORT_WORD_OUT(0xA1, 0x28);
-    PORT_WORD_OUT(0x21, 0x04);
-    PORT_WORD_OUT(0xA1, 0x02);
-    PORT_WORD_OUT(0x21, 0x01);
-    PORT_WORD_OUT(0xA1, 0x01);
-    PORT_WORD_OUT(0x21, 0x0);
-    PORT_WORD_OUT(0xA1, 0x0);
+
 
     IDT_SET_GATE(0, (u32)isr0, 0x08, 0x8E);
     IDT_SET_GATE(1, (u32)isr1, 0x08, 0x8E);
@@ -54,6 +45,18 @@ void IDT_INSTALL(void){
     IDT_SET_GATE(30, (u32)isr30, 0x08, 0x8E);
     IDT_SET_GATE(31, (u32)isr31, 0x08, 0x8E);
 
+    /* Remap PIC */
+    PORT_WORD_OUT(0x20, 0x11);
+    PORT_WORD_OUT(0xA0, 0x11);
+    PORT_WORD_OUT(0x21, 0x20);
+    PORT_WORD_OUT(0xA1, 0x28);
+    PORT_WORD_OUT(0x21, 0x04);
+    PORT_WORD_OUT(0xA1, 0x02);
+    PORT_WORD_OUT(0x21, 0x01);
+    PORT_WORD_OUT(0xA1, 0x01);
+    PORT_WORD_OUT(0x21, 0x0);
+    PORT_WORD_OUT(0xA1, 0x0);
+
     IDT_SET_GATE(32, (u32)irq0, 0x08, 0x8E);
     IDT_SET_GATE(33, (u32)irq1, 0x08, 0x8E);
     IDT_SET_GATE(34, (u32)irq2, 0x08, 0x8E);
@@ -81,5 +84,5 @@ void IDT_SET_GATE(int Num, u32 Base, u16 Sel, u8 Flags){
     IDT[Num].high_offset = (Base >> 16) & 0xFFFF;
     IDT[Num].sel = Sel;
     IDT[Num].always0 = 0; /* Woooooooow */
-    IDT[Num].flags = Flags | 0x60;
+    IDT[Num].flags = Flags ;
 }

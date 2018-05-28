@@ -3,7 +3,7 @@
 #include "../../libraries/bikka/keyboard.h"
 #include "../../libraries/bikka/video.h"
 #include "../../libraries/bikka/low_level.h"
-#include "../../libraries/shell.h"
+#include "../../libraries/bikka/shell.h"
 #include "../../libraries/common.h"
 
 char KeyBuffer[256]; /* Buffer for the keyboard */
@@ -97,11 +97,8 @@ void KEYBOARD_CALLBACK(registers_t Regs){
             APPEND(KeyBuffer, Letter);
             printf(Str);
         }
-        //UNUSED(Regs);
+        UNUSED(Regs);
     }while(1);
-
 }
 
-void KEYBOARD_INIT(void){
-    ISR_REGISTER_INTERRUPT_HANDLER(IRQ1, &KEYBOARD_CALLBACK);
-}
+void KEYBOARD_INIT(void){ ISR_REGISTER_INTERRUPT_HANDLER(IRQ1, KEYBOARD_CALLBACK); }

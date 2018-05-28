@@ -24,6 +24,6 @@ idt_registers_t IDT_REG;
 
 /* Functions */
 void IDT_SET_GATE(int Num, u32 Base, u16 Sel, u8 Flags);
-void IDT_INSTALL(void);
+void IDT_AND_ISR_INSTALL(void);
 extern void IDT_FLUSH(u32 IDT_PTR); /* Look in the idt.asm file */
 #endif

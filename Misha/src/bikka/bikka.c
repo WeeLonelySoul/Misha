@@ -7,7 +7,7 @@
 #include "../libraries/bikka/printsyssetup.h"
 #include "../libraries/bikka/memory.h"
 #include "../libraries/bikka/task.h"
-#include "../libraries/misha/syscall.h"
+
 
 /*
 
@@ -28,20 +28,16 @@ const string Logo ="\n"
 
 u32 InitialEsp;
 
-void BIKKA_MAIN(u32 InitialStack){
-    
-    InitialEsp = InitialStack;
+void BIKKA_MAIN(u32 InitialStack){    
+    InitialEsp = InitialStack; /* Get the "original" stack */
 
     /* Core functions for pretty much every operating systems */
     GDT_INSTALL(); /* Global Descriptor Table */
-    //ISR_INSTALL(); /* Interrupt handler */
-    IDT_INSTALL();
+    IDT_AND_ISR_INSTALL();
     IRQ_INSTALL(); /* Interrupt request */
-
 
     /* Less but still important functions */
     TERMINAL_INSTALL(); /* Install the terminal */
-    // MEMORY_INSTALL(); /* Install the memory management */
     MEMORY_PAGING_INSTALL(); /* Install paging */
     TASK_INSTALL();
 
@@ -53,10 +49,6 @@ void BIKKA_MAIN(u32 InitialStack){
     GeoPrint("Kernel-Mode", 68, 0); /* Shows that the user is currently in kernel-land */
     GeoPrint(Logo , 20, 1); /* New print function */
     SYS_SETUP_PRINT(); /* Print out the details regarding the system */
-
-    if (!InitialEsp){printf("Hi");}
-    SYSCALL_INSTALL();
-    //MISHA_START(); /* Enter usermode and start Misha */
-    //INPUT();
-    //for(;;){}
+    INPUT(); /* Start the keyboard */
+    for(;;){}
 }

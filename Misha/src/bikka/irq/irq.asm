@@ -7,6 +7,25 @@
 [extern IRQ_HANDLER]
 
 
+; First make the IRQs global
+[global irq0]
+[global irq1]
+[global irq2]
+[global irq3]
+[global irq4]
+[global irq5]
+[global irq6]
+[global irq7]
+[global irq8]
+[global irq9]
+[global irq10]
+[global irq11]
+[global irq12]
+[global irq13]
+[global irq14]
+[global irq15]
+
+
 ; This function works much like the IRS_COMMON_STUB found in isr.asm
 IRQ_COMMON_STUB:
     pusha
@@ -29,26 +48,6 @@ IRQ_COMMON_STUB:
     add esp, 8
     sti
     iret
-
-
-; First make the IRQs global
-global irq0
-global irq1
-global irq2
-global irq3
-global irq4
-global irq5
-global irq6
-global irq7
-global irq8
-global irq9
-global irq10
-global irq11
-global irq12
-global irq13
-global irq14
-global irq15
-
 
 
 

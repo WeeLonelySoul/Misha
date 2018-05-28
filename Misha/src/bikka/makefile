@@ -47,11 +47,11 @@ compile:
 
 	$(COMPILER_DIR) -c time/time.c -o $(OUTPUT_AREA)/time.o $(COMPILE_FLAGS)
 
-	$(COMPILER_DIR) -c usermode/usermode.c -o $(OUTPUT_AREA)/usermode.o $(COMPILE_FLAGS)			       
-
 	$(COMPILER_DIR) -c task/task.c -o $(OUTPUT_AREA)/task.o $(COMPILE_FLAGS)			       
 	$(ASM_COMPILER) task/task.asm -o $(OUTPUT_AREA)/task_asm.o $(ASM_COMPILER_FLAGS)			
 
 	$(COMPILER_DIR) -c ordered_array_algorithm/ordered_array_algorithm.c -o $(OUTPUT_AREA)/ordered_array_algorithm.o $(COMPILE_FLAGS)			       
 
 	$(COMPILER_DIR) -c heap/kheap.c -o $(OUTPUT_AREA)/kheap.o $(COMPILE_FLAGS)			       
+
+		$(COMPILER_DIR) -c shell/shell.c -o $(OUTPUT_AREA)/shell.o $(COMPILE_FLAGS)			       

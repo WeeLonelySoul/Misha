@@ -62,7 +62,14 @@ int printf(const char *restrict Format, ...){
             if (!print(STR, Len)) { return -1; }
             Written += Len;
         }else if(*Format == 'd'){
-                
+            /* Enable the 'd' option */
+                Format++;
+                const char c[256];
+                INT_TO_ASCII((char) va_arg(_PARAMETERS, const char *), c);
+                size_t Len = STR_LEN(c);
+                if (MaxRem < Len) { PANIC("Error on function printf! Len (Length) was bigger than MaxRem (1)"); }
+                if (!print(c, Len)) { return -1; }
+
         }else{
             Format = FormatBegunAt;
             size_t Len = STR_LEN(Format);

@@ -15,7 +15,7 @@ void TERMINAL_INSTALL(void){
     /* Sets up and installs the terminal */
     _TerminalRow = 0;
     _TerminalColumn = 0;
-    _TerminalColor = VGAEntryColor(COLOR_WHITE, COLOR_RED); /* Communist red, hehe */
+    _TerminalColor = VGAEntryColor(COLOR_WHITE, COLOR_BLUE); /* Communist red, hehe, well it's blue now */
     _TerminalBuffer = (uint16_t*) VIDEO_ADDRESS; /* Point the buffer to our video address */
     for (size_t Y_Axis = 0; Y_Axis < _VGAHeight; Y_Axis++){  /* Y_axis */
         for (size_t X_Axis = 0; X_Axis < _VGAWidth; X_Axis++){ /* X_axis */
