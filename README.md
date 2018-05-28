@@ -1,6 +1,8 @@
 # Misha
 ### A quite so different operating system
 
+### [Misha - last update](https://twitter.com/WeeLonelySoul/status/1001064335366598656)
+
 ## Install
 To compile and run the project, you'll need the following installed on your computer <br>
 **-> Qemu** <br>
